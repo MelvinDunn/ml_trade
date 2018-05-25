@@ -1,0 +1,10 @@
+[
+  "grade_analysis.py::test_analysis[inputs0-outputs0-Wiki example 1]", 
+  "grade_analysis.py::test_analysis[inputs1-outputs1-Wiki example 2]", 
+  "grade_analysis.py::test_analysis[inputs2-outputs2-Wiki example 3: Six month range]", 
+  "grade_analysis.py::test_analysis[inputs3-outputs3-Normalization check]", 
+  "grade_analysis.py::test_analysis[inputs4-outputs4-One month range]", 
+  "grade_analysis.py::test_analysis[inputs5-outputs5-Low Sharpe ratio]", 
+  "grade_analysis.py::test_analysis[inputs6-outputs6-All your eggs in one basket]", 
+  "grade_analysis.py::test_analysis[inputs7-outputs7-Two year range]"
+]

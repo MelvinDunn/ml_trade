@@ -1,0 +1,9 @@
+{
+  "grade_optimization.py::test_optimization[inputs0-outputs0-Wiki example 1-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs1-outputs1-Wiki example 2-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs2-outputs2-Wiki example 3-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs3-outputs3-Wiki example 4-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs4-outputs4-MSFT vs HPQ-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs5-outputs5-MSFT vs AAPL-1481094712]": true, 
+  "grade_optimization.py::test_optimization[inputs6-outputs6-Wiki example 1 in 2011-1481094712]": true
+}

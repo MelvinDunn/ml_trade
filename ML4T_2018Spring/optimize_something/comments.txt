@@ -1,0 +1,83 @@
+<pre>--- Summary ---
+Tests passed: 1 out of 8
+
+--- Details ---
+Test #0: failed 
+Test case description: Wiki example 1
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2010-01-01 00:00:00
+    end_date: 2010-12-31 00:00:00
+    symbols: ['GOOG', 'AAPL', 'GLD', 'XOM']
+
+  Failures:
+    Sddr too large: 0.0102933716694 (expected < 0.00828691718086 + 0.000414345859043)
+
+Test #1: failed 
+Test case description: Wiki example 2
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2004-01-01 00:00:00
+    end_date: 2006-01-01 00:00:00
+    symbols: ['AXP', 'HPQ', 'IBM', 'HNZ']
+
+  Failures:
+    Sddr too large: 0.00785967695501 (expected < 0.00706292107796 + 0.000353146053898)
+
+Test #2: failed 
+Test case description: Wiki example 3
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2004-12-01 00:00:00
+    end_date: 2006-05-31 00:00:00
+    symbols: ['YHOO', 'XOM', 'GLD', 'HNZ']
+
+  Failures:
+    Sddr too large: 0.00836787613606 (expected < 0.00700653270334 + 0.000350326635167)
+
+Test #3: failed 
+Test case description: Wiki example 4
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2005-12-01 00:00:00
+    end_date: 2006-05-31 00:00:00
+    symbols: ['YHOO', 'HPQ', 'GLD', 'HNZ']
+
+  Failures:
+    Sddr too large: 0.00887899665515 (expected < 0.00789501806472 + 0.000394750903236)
+
+Test #4: failed 
+Test case description: MSFT vs HPQ
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2005-12-01 00:00:00
+    end_date: 2007-05-31 00:00:00
+    symbols: ['MSFT', 'HPQ', 'GLD', 'HNZ']
+
+  Failures:
+    Sddr too large: 0.00752810694191 (expected < 0.00688155185985 + 0.000344077592993)
+
+Test #5: failed 
+Test case description: MSFT vs AAPL
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2006-05-31 00:00:00
+    end_date: 2007-05-31 00:00:00
+    symbols: ['MSFT', 'AAPL', 'GLD', 'HNZ']
+
+  Failures:
+    Sddr too large: 0.00849773660121 (expected < 0.00693253248047 + 0.000346626624024)
+
+Test #6: failed 
+Test case description: Wiki example 1 in 2011
+IncorrectOutput: Test failed on one or more output criteria.
+  Inputs:
+    start_date: 2011-01-01 00:00:00
+    end_date: 2011-12-31 00:00:00
+    symbols: ['AAPL', 'GLD', 'GOOG', 'XOM']
+
+  Failures:
+    Sddr too large: 0.0109964771091 (expected < 0.0096198317644 + 0.00048099158822)
+
+Test #7: passed 
+</pre>
