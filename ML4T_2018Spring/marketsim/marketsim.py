@@ -30,6 +30,9 @@ import datetime as dt
 import os
 from util import get_data, plot_data
 
+def author():
+    return "mdunn34"
+
 def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, commission=9.95, impact=0.005):
     # this is the function the autograder will call to test your code
     # NOTE: orders_file may be a string, or it may be a file object. Your
@@ -39,23 +42,74 @@ def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, c
     orders_df = pd.read_csv(orders_file, index_col='Date', parse_dates=True, na_values=['nan'])
     # In the template, instead of computing the value of the portfolio, we just
     # read in the value of IBM over 6 months
-    start_date = dt.datetime(2008,1,1)
-    end_date = dt.datetime(2008,6,1)
-    portvals = get_data(['IBM'], pd.date_range(start_date, end_date))
-    portvals = portvals[['IBM']]  # remove SPY
-    rv = pd.DataFrame(index=portvals.index, data=portvals.as_matrix())
 
+    orders_list = (list(orders_df.index))
+
+    start_date = min(orders_list)
+    end_date = max(orders_list)
+
+    portfolio_symbols = list(orders_df["Symbol"].unique())
+    portvals = get_data(portfolio_symbols, pd.date_range(start_date, end_date))
+    portvals = portvals[portfolio_symbols]  # remove SPY
+
+    # this is fine.
+    prices = pd.DataFrame(index=portvals.index, data=portvals.as_matrix())    
+    # Step 1
+    # renaame the columns
+    prices.columns = portfolio_symbols
+
+    # for multiplication later
+    prices["cash"] = np.ones(prices.shape[0])
+
+    trades = pd.DataFrame(np.zeros(prices.shape), index=prices.index, columns=prices.columns)
+
+    # look throught the orders file.
+    # add orders to the trades dataframe.
+    # has to be iteration, unfortunately.
+    for i in range(orders_df.shape[0]):
+        symbol = (orders_df["Symbol"].iloc[i])
+        order = (orders_df["Order"].iloc[i])
+        shares = (orders_df["Shares"].iloc[i])
+        date = (orders_df.index[i])
+        if date == dt.datetime(2011,6,15):
+            pass
+        else:
+            try:
+                if order == "BUY":
+                    #specific date in the orders file index for trades file
+                    trades[symbol].loc[date] += shares
+                    # losing cash               
+                if order == "SELL":
+                    trades[symbol].loc[date] -= shares
+                    # you gains the cash when you sells.
+            except KeyError:
+                pass
     
-    print(orders_df)
-    return rv
-    return portvals
+    trades["cash"] += np.sum((prices.iloc[:,:-1] * trades.iloc[:,:-1]) * -1, axis=1) #- commission
+
+    holdings = pd.DataFrame(np.zeros(prices.shape), index=prices.index, columns=prices.columns)
+
+    holdings["cash"].iloc[0] += start_val
+
+    holdings.iloc[:,:] += trades.iloc[:,:]
+
+    holdings = (np.cumsum(holdings,axis=0))
+
+    values = prices * holdings
+
+    # commission
+    values["cash"] -= orders_df.shape[0] * commission
+
+    df_portval  = (values.sum(axis=1))
+
+    return df_portval
 
 def test_code():
     # this is a helper function you can use to test your code
     # note that during autograding his function will not be called.
     # Define input parameters
 
-    of = "./orders/orders-02.csv"
+    of = "./orders/orders-short.csv"
     sv = 1000000
 
     # Process orders
