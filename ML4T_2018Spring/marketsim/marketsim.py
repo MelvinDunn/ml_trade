@@ -84,7 +84,9 @@ def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, c
                     # you gains the cash when you sells.
             except KeyError:
                 pass
-    
+
+
+
     trades["cash"] += np.sum((prices.iloc[:,:-1] * trades.iloc[:,:-1]) * -1, axis=1) #- commission
 
     holdings = pd.DataFrame(np.zeros(prices.shape), index=prices.index, columns=prices.columns)
@@ -97,7 +99,6 @@ def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, c
 
     values = prices * holdings
 
-    # commission
     values["cash"] -= orders_df.shape[0] * commission
 
     df_portval  = (values.sum(axis=1))
