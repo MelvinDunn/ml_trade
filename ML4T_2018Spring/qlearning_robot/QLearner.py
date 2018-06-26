@@ -91,8 +91,8 @@ class QLearner(object):
 
         self.verbose = verbose
         self.num_actions = num_actions
-        self.q_table = np.random.uniform(-1, 1,
-        	size=(num_states, num_actions))
+        self.num_states = num_states
+        self.q_table = np.zeros((num_states, num_actions))
         self.rar = rar
         self.radr = radr
         self.alpha = alpha
@@ -100,6 +100,13 @@ class QLearner(object):
         self.last_state = 0
         self.s = rand.randint(0, num_states-1)
         self.a = 0
+        self.dyna = dyna
+
+        if self.dyna is not 0:
+        	self.T_count = np.zeros((num_states, num_actions, num_states)) + 0.00001
+        	self.T = self.T_count / self.T_count.sum(axis=2, keepdims=True)
+        	self.R = -1 * np.ones((num_states, num_actions))
+
     
     def author(self):
         return "mdunn34"
@@ -129,12 +136,30 @@ class QLearner(object):
             self.q_table[s_prime, np.argmax(self.q_table[s_prime, :])])
         update = old_value + improved_estimate
         self.q_table[self.s, self.a] = update
+
         if rand.random() <= self.rar:
         	action = rand.randint(0, self.num_actions-1)
         else:
         	action = np.argmax(self.q_table[s_prime,:])
-        self.rar = self.rar * self.radr
-        random_act = (rand.uniform(0,1))
+        
+        self.rar -= self.radr
+
+        if self.dyna is not 0:
+        	# T' update and R update
+        	self.T_count[self.s, self.a, s_prime] += 1
+        	self.T = self.T_count / self.T_count.sum(axis=2, keepdims=True)
+        	self.R[self.s, self.a] = (1-self.alpha) * self.R[self.s, self.a] + (self.alpha * r)
+        	for i in range(0, self.dyna):        	
+	        	S = rand.randint(0, self.num_states-1)
+	        	A = rand.randint(0, self.num_actions-1)
+	        	S_prime = np.argmax(self.T_count[S, A, :])
+	        	r = self.R[S, A]
+	        	old_dyna_value = ((1. - self.alpha) * self.q_table[S, A])
+		        improved_dyna_estimate = self.alpha * (r + self.gamma * \
+		            self.q_table[S_prime, np.argmax(self.q_table[S_prime, :])])
+		        dyna_update = old_dyna_value + improved_dyna_estimate    	
+		        self.q_table[S, A] = dyna_update
+
         self.a = action
         self.s = s_prime
         if self.verbose: print "s =", s_prime,"a =",action,"r =",r
