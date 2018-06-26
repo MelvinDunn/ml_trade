@@ -97,7 +97,6 @@ class QLearner(object):
         self.radr = radr
         self.alpha = alpha
         self.gamma = gamma
-        self.last_state = 0
         self.s = rand.randint(0, num_states-1)
         self.a = 0
         self.dyna = dyna
@@ -117,7 +116,7 @@ class QLearner(object):
         @param s: The new state
         @returns: The selected action
         """
-        self.s = self.last_state
+        self.s = s
         action = np.argmax(self.q_table[self.s, :])
         if (rand.uniform(0,1)) > self.rar:
             action = np.argmax(self.q_table[s,])
