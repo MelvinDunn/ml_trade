@@ -119,7 +119,7 @@ class QLearner(object):
         self.s = s
         action = np.argmax(self.q_table[self.s, :])
         if (rand.uniform(0,1)) > self.rar:
-            action = np.argmax(self.q_table[s,])
+            action = np.argmax(self.q_table[self.s,])
         if self.verbose: print "s =", s,"a =",action
         return action
 
